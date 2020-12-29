@@ -12,40 +12,42 @@ describe('todoRepository', () => {
     })
 
     afterEach(() => {
-        sandbox.reset()
-    })
-
-    it('should call inserOne from lokijs', () => {
-
-        const functionName = "insertOne"
-
-        sandbox.stub(
-            todoRepository.schedule,
-            functionName,
-        ).returns(true)
-
-        const data = { name: 'Erick' }
-        const result = todoRepository.create(data)
-
-
-        expect(result).to.be.ok
-        expect(todoRepository.schedule[functionName].calledOnceWithExactly(data)).to.be.ok
+        sandbox.restore()
     })
     
-    it('should call find from lokijs', () => {
+    describe('methods signature', () => {
 
-        const functionName = "find"
-        const data = { name: 'Erick' }
+        it('should call inserOne from lokijs', () => {
 
-        sandbox.stub(
-            todoRepository.schedule,
-            functionName,
-        ).returns([data])
+            const functionName = "insertOne"
 
-        const result = todoRepository.list(data)
+            sandbox.stub(
+                todoRepository.schedule,
+                functionName,
+            ).returns(true)
 
-        
-        expect(result).to.be.ok
-        expect(todoRepository.schedule[functionName].calledOnceWithExactly(data)).to.be.ok
+            const data = { name: 'Erick' }
+            const result = todoRepository.create(data)
+
+
+            expect(result).to.be.ok
+            expect(todoRepository.schedule[functionName].calledOnceWithExactly(data)).to.be.ok
+        })
+
+        it('should call find from lokijs', () => {
+
+            const functionName = "find"
+            const expectedReturn = [{ text: 'hello!' }]
+            
+            sandbox.stub(
+                todoRepository.schedule,
+                functionName,
+            ).returns(expectedReturn)
+
+            const result = todoRepository.list()
+
+            expect(result).to.be.deep.equal(expectedReturn)
+            expect(todoRepository.schedule[functionName].calledOnce).to.be.ok
+        })
     })
 })

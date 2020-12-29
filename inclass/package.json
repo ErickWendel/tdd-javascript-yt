@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx mocha test/ -w"
+    "test:dev": "npx mocha test/ -w",
+    "test": "npx mocha --parallel --exit test/",
+    "test:cov": "npx nyc --reporter=html npm test",
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "",

@@ -10,8 +10,8 @@ class TodoRepository {
         return this.schedule.insertOne(data)
     }
     
-    list(query) {
-        return this.schedule.find(query)
+    list() {
+        return this.schedule.find()
     }
 }
 

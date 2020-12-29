@@ -2,10 +2,10 @@ const { describe, it, before, afterEach } = require('mocha')
 const { expect } = require('chai')
 
 const Todo = require('../src/todo')
-const { createSandbox, ...sinon } = require('sinon')
+const { createSandbox } = require('sinon')
 
 
-describe('todoService', () => {
+describe('todo', () => {
     let sandbox
     before(() => sandbox = createSandbox())
     afterEach(() => sandbox.restore())
