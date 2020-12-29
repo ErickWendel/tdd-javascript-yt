@@ -16,7 +16,7 @@ describe('calendar', () => {
 
     describe('should validate data input', () => {
         describe('#parseDate', () => {
-            it.only('should parse date from string', () => {
+            it('should parse date from string', () => {
 
                 const data = '10/11/2020 10:10'
                 const calendar = new Calendar({})
