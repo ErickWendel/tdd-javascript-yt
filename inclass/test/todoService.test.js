@@ -12,6 +12,37 @@ describe('todoService', () => {
     before(() => sandbox = createSandbox())
     afterEach(() => sandbox.restore())
 
+    describe('#list', () => {
+        const mockDatabase = [
+            {
+                id: '0001',
+                text: 'Hello World',
+                when: new Date('2021-01-01'),
+                status: 'pending',
+
+                meta: { revision: 0, created: 10000, version: 0 },
+                $loki: 3
+            },
+        ]
+
+        beforeEach(() => {
+            const dependencies = {
+                todoRepository: {
+                    list: sandbox.stub().returns(mockDatabase),
+                }
+            }
+
+            todoService = new TodoService(dependencies)
+        })
+
+        it('should return data on a specific format', () => {
+            const result = todoService.list()
+            const [{ meta, $loki, ...expected }] = mockDatabase
+
+            expect(result).to.be.deep.equal([expected])
+        })
+    })
+
     describe('#create', () => {
         beforeEach(() => {
             const dependencies = {
@@ -63,7 +94,7 @@ describe('todoService', () => {
         it('should save todo item with pending status', () => {
             const properties = { text: 'I must buy new clothes', when: new Date('2020-12-30 17:00:00 GMT-0') }
             const data = new Todo(properties)
-            data.id = "00001"
+            Reflect.set(data, "id", "00001")
 
             const today = new Date("2020-12-29")
             sandbox.useFakeTimers(today.getTime())
@@ -79,34 +110,4 @@ describe('todoService', () => {
         })
     })
 
-    describe('#list', () => {
-        const mockDatabase = [
-            {
-                id: '0001',
-                text: 'Hello World',
-                when: new Date('2021-01-01'),
-                status: 'pending',
-
-                meta: { revision: 0, created: 10000, version: 0 },
-                $loki: 3
-            },
-        ]
-
-        beforeEach(() => {
-            const dependencies = {
-                todoRepository: {
-                    list: sandbox.stub().returns(mockDatabase),
-                }
-            }
-
-            todoService = new TodoService(dependencies)
-        })
-
-        it('should return data on a specific format', () => {
-            const result = todoService.list()
-            const [{ meta, $loki, ...expected }] = mockDatabase
-
-            expect(result).to.be.deep.equal([expected])
-        })
-    })
 })

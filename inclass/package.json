@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:dev": "npx mocha test/ -w",
     "test": "npx mocha --parallel --exit test/",
-    "test:cov": "npx nyc --reporter=html npm test",
+    "test:dev": "npx mocha test/ -w",
+    "test:cov": "npx nyc --reporters=html,text npm test",
     "start": "node src/index.js"
   },
   "keywords": [],

@@ -12,7 +12,7 @@ describe('todo', () => {
 
     describe('#isValid', () => {
 
-        it('should return invalid when creatincxg an object without text', () => {
+        it('should return invalid when creating an object without text', () => {
             const data = {
                 text: '',
                 when: new Date("2020-12-01")
