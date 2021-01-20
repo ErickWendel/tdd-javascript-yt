@@ -14,7 +14,7 @@ describe('todoRepository', () => {
     afterEach(() => {
         sandbox.restore()
     })
-    
+
     describe('methods signature', () => {
 
         it('should call inserOne from lokijs', () => {
@@ -37,8 +37,16 @@ describe('todoRepository', () => {
         it('should call find from lokijs', () => {
 
             const functionName = "find"
-            const expectedReturn = [{ text: 'hello!' }]
-            
+            const expectedReturn = [{
+                text: 'hello!',
+                meta: {
+                    revision: 0,
+                    created: 1611180937993,
+                    version: 0
+                },
+                $loki: 4
+            }]
+
             sandbox.stub(
                 todoRepository.schedule,
                 functionName,
