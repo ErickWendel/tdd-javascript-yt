@@ -2,7 +2,7 @@ const loki = require('lokijs')
 
 class TodoRepository {
     constructor() {
-        const db = new loki('todo', { indices: ['from', 'to'] });
+        const db = new loki('todo', {});
         this.schedule = db.addCollection('schedule');
     }
 
